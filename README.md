@@ -1,3 +1,3 @@
-React mini project
+React mini project with Redux
 
-Redux 
+Dream coding ellie clone coding + Redux refactoring
