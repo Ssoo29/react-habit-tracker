@@ -1,3 +1,3 @@
 React mini project
 
-habit-tracker
+Redux 
