@@ -1,69 +1,50 @@
 import React, { Component } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./app.css";
 import Habits from "./components/habits";
 import Navbar from "./components/navbar";
+import {
+  selectHabits,
+  increment,
+  decrement,
+  onDelete,
+  onAdd,
+  onReset,
+} from "./features/counter/counterSlice";
 
-class App extends Component {
-  state = {
-    habits: [
-      { id: 1, name: "Reading", count: 0 },
-      { id: 2, name: "Running", count: 0 },
-      { id: 3, name: "Coding", count: 0 },
-    ],
+function App() {
+  const habits = useSelector(selectHabits);
+  const dispatch = useDispatch();
+
+  const handleIncrement = (habit) => {
+    dispatch(increment(habit));
   };
-  handleIncrement = (habit) => {
-    const habits = this.state.habits.map((item) => {
-      if (item.id === habit.id) {
-        return { ...habit, count: habit.count + 1 };
-      }
-      return item;
-    });
-    this.setState({ habits });
+  const handleDecrement = (habit) => {
+    dispatch(decrement(habit));
   };
-  handleDecrement = (habit) => {
-    const habits = this.state.habits.map((item) => {
-      if (item.id === habit.id) {
-        return { ...habit, count: habit.count - 1 };
-      }
-      return item;
-    });
-    this.setState({ habits });
+  const handleDelete = (habit) => {
+    dispatch(onDelete(habit));
   };
-  handleDelete = (habit) => {
-    const habits = this.state.habits.filter((item) => item.id !== habit.id);
-    this.setState({ habits });
+  const handleAdd = (name) => {
+    dispatch(onAdd(name));
   };
-  handleAdd = (name) => {
-    const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }];
-    this.setState({ habits });
-  };
-  handleReset = () => {
-    const habits = this.state.habits.map((habit) => {
-      if (habit.count !== 0) {
-        return { ...habit, count: 0 };
-      }
-      return habit;
-    });
-    this.setState({ habits });
+  const handleReset = () => {
+    dispatch(onReset());
   };
 
-  render() {
-    return (
-      <>
-        <Navbar
-          totalCount={this.state.habits.filter((item) => item.count > 0).length}
-        />
-        <Habits
-          habits={this.state.habits}
-          onIncrement={this.handleIncrement}
-          onDecrement={this.handleDecrement}
-          onDelete={this.handleDelete}
-          onAdd={this.handleAdd}
-          onReset={this.handleReset}
-        />
-      </>
-    );
-  }
+  return (
+    <>
+      <Navbar totalCount={habits.filter((item) => item.count > 0).length} />
+      <Habits
+        habits={habits}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+        onDelete={handleDelete}
+        onAdd={handleAdd}
+        onReset={handleReset}
+      />
+    </>
+  );
 }
 
 export default App;
