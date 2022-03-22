@@ -4,7 +4,4 @@ Dream coding ellie clone coding + Redux refactoring
 
 node version 16.13.2 필요
 
-실행방법:
- - 원하는 디렉토리에 해당 프로젝트 clone 후
- - npm install
- - npm start
+AWS Amplify  URL: https://master.d8gi2k23v3dqz.amplifyapp.com/
